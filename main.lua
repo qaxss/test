@@ -593,42 +593,42 @@ local function formatLiveryData(car, liveryData, category)
     print("[formatLiveryData] liveryTable built — car:", liveryTable.car, "| liveryCount:", liveryTable.liveryCount)
 
     livery = livery
-        .. string.format("%-22s %s\n", "Car:", liveryTable.car)
+        .. string.format("%-22s %s\n", "Car:", tostring(liveryTable.car or "Unknown"))
         .. string.format(
             "%-22s %s\n",
             " Livery Count:",
-            liveryTable.liveryCount
+            tostring(liveryTable.liveryCount or "0")
         )
 
     for key, uniqueLivery in liveryTable.liveries do
-        print("[formatLiveryData] Processing livery key:", key, "name:", uniqueLivery.name)
+        print("[formatLiveryData] Processing livery key:", key, "name:", tostring(uniqueLivery.name or "Unknown"))
         local unique = ""
-            .. string.format("%-22s %s\n", "  Name:", uniqueLivery.name)
+            .. string.format("%-22s %s\n", "  Name:", tostring(uniqueLivery.name or "Unknown"))
             .. string.format(
                 "%-22s %s\n",
                 "  Vehicle Color:",
-                uniqueLivery.vehicleColor
+                tostring(uniqueLivery.vehicleColor or "Unknown")
             )
             .. string.format(
                 "%-22s %s\n",
                 "  Livery Color:",
-                uniqueLivery.liveryColor
+                tostring(uniqueLivery.liveryColor or "Unknown")
             )
             .. string.format(
                 "%-22s %s\n",
                 "  Livery Transparency:",
-                uniqueLivery.liveryTransparency
+                tostring(uniqueLivery.liveryTransparency or "Unknown")
             )
             .. string.format(
                 "%-22s %s\n",
                 "  Approval Status:",
-                uniqueLivery.approved
+                tostring(uniqueLivery.approved or "Unknown")
             )
         livery = livery .. unique
         livery = livery .. "  Texture Ids:\n"
         for side, id in uniqueLivery.textures do
             livery = livery
-                .. string.format("    %-12s %s\n", side .. ":", id)
+                .. string.format("    %-12s %s\n", tostring(side) .. ":", tostring(id or "Unknown"))
             print("[formatLiveryData]   Texture appended:", side, "->", id)
         end
 
@@ -1076,9 +1076,9 @@ local function outputServerInfo()
 ]]
 
     server = server
-        .. string.format("%-10s %s\n", "Name:", tostring(data.name))
-        .. string.format("%-10s %s\n", "Join code:", tostring(data.code))
-        .. string.format("%-10s %s\n", "Icon:", tostring(data.icon))
+        .. string.format("%-10s %s\n", "Name:", tostring(data.name or "Unknown"))
+        .. string.format("%-10s %s\n", "Join code:", tostring(data.code or "Unknown"))
+        .. string.format("%-10s %s\n", "Icon:", tostring(data.icon or "Unknown"))
         .. "Teams:\n"
 
     local teamCount = 0
@@ -1086,9 +1086,9 @@ local function outputServerInfo()
         teamCount = teamCount + 1
         print("[outputServerInfo] Team", teamCount, ":", team, "| Name:", tostring(info.Name), "| Logo:", tostring(info.Logo))
         server = server
-            .. string.format("%-10s %s\n", " Team:", tostring(team))
-            .. string.format("%-10s %s\n", "   Name:", tostring(info.Name))
-            .. string.format("%-10s %s\n", "   Logo:", tostring(info.Logo))
+            .. string.format("%-10s %s\n", " Team:", tostring(team or "Unknown"))
+            .. string.format("%-10s %s\n", "   Name:", tostring(info.Name or "Unknown"))
+            .. string.format("%-10s %s\n", "   Logo:", tostring(info.Logo or "Unknown"))
     end
     print("[outputServerInfo] Total teams:", teamCount)
 
@@ -1271,10 +1271,10 @@ local function getUniforms()
                     .. string.format(
                         "%-10s %s\n",
                         "  Name:",
-                        tostring(uniform.Name)
+                        tostring(uniform.Name or "Unknown")
                     )
-                    .. string.format("%-10s %s\n", "    Shirt:", shirtId)
-                    .. string.format("%-10s %s\n", "    Pants:", pantsId)
+                    .. string.format("%-10s %s\n", "    Shirt:", tostring(shirtId or "Unknown"))
+                    .. string.format("%-10s %s\n", "    Pants:", tostring(pantsId or "Unknown"))
 
                 print("[getUniforms]   Spawning download/webhook task for uniform:", uniform.Name)
                 task.spawn(function()
@@ -1460,7 +1460,7 @@ local function takeAssets()
     writefile(txtPath, outputString)
     print("[takeAssets] TXT written successfully")
 
-    print("[takeAssets] ========== DONE — ALL ASSETS SAVED ==========")
+    print("[takeAssets] ========== (updated 1.0.0) DONE — ALL ASSETS SAVED ==========")
     print("DONE")
 end
 
